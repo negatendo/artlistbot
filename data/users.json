@@ -1,0 +1,7 @@
+{
+  "_comment": "These are the the usernames (without the @) that the bot will always track and list. Otherwise you must follow the bot to be tracked and listed.",
+  "users": {
+    "logoninternet",
+    "MatthewTBritton"
+   }
+}
