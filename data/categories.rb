@@ -1,6 +1,9 @@
-{
-  "_comment": "These are the award list categories and other data that is combined to make teh tweets.",
-  "superlative": {
+$imported_categories = {
+  "superlatives" => [
+    "hot off the list presses:",
+    "list update!",
+    "time to make the lists!",
+    "i'mmmm updating liiiiiists! :D",
     "congratulations!",
     "oh no!",
     "uh oh!",
@@ -12,17 +15,20 @@
     "i've updated my lists!",
     "add the 8... carry the 0... ok so",
     "according to my calculations"
-  },
-  "verbs": {
+  ],
+  "verbs" => [
     "has become the",
     "is now the",
     "just became the",
     "is, starting now, the",
     "has been awarded the",
     "may now be recognized the",
-    "should be seen as the"
-  },
-  "adjectives": {
+    "should be seen as the",
+    "has taken a position as",
+    "is now listed as the",
+    "is on the list of the"
+  ],
+  "adjectives" => [
     "most likely",
     "least likely",
     "most promenient",
@@ -35,9 +41,15 @@
     "cutest",
     "hottest",
     "most attractive",
-    "ugliest"
-  },
-  "nouns": {
+    "ugliest",
+    "most ridiculous",
+    "strongest",
+    "tallest",
+    "smartest",
+    "sharpest",
+    "most oblivious"
+  ],
+  "nouns" => [
     "net artist",
     "blogger",
     "user account",
@@ -49,9 +61,11 @@
     "sculptor",
     "illustrator",
     "artist",
-    "art fan"
-  },
-  "categories": {
+    "art fan",
+    "sports fan",
+    "intern"
+  ],
+  "categories" => [
     "to be on Twitter",
     "to miss your private view",
     "that's Spammer of the year",
@@ -74,6 +88,10 @@
     "to have their work featured",
     "to buy followers",
     "to go viral",
-    "with the most aesthetically pleasing art"
-  }
+    "with the most aesthetically pleasing art",
+    "to make a twitter bot",
+    "to quit the internet",
+    "to delete their account",
+    "to hoard collectable art"
+  ]
 }
