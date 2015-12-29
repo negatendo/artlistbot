@@ -1,0 +1,3 @@
+[submodule "rubybottools"]
+	path = rubybottools
+	url = https://github.com/negatendo/rubybottools.git
