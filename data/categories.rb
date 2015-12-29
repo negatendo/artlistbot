@@ -15,6 +15,12 @@ $imported_categories = {
     "i've updated my lists!",
     "add the 8... carry the 0... ok so",
     "according to my calculations"
+    "commiserations!"
+    "breaking news"
+    "sorry to inform you"
+    "hmmm"
+    "as it stands"
+    "it's all changed"
   ],
   "verbs" => [
     "has become the",
