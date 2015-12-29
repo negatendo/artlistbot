@@ -154,22 +154,36 @@ class ListMachine
     prev_users = list[1]["previous"]
 
     #get random user from list
+    #reminder: rank still starts a 0 right now
     username = curr_users.sample
     curr_rank = curr_users.index(username.to_s)
-    prev_rank = 0
-    if prev_users
+    prev_rank = -1
+    if prev_users then
       prev_rank = prev_users.index(username.to_s)
     end
 
     #set ranking symbol and verb
-    #TODO
+    direction = 'neutral'
+    symbol = $neutral_symbol
+    verb = $imported_categories['neutral_verbs'].sample.to_s
 
+    if prev_rank.to_i >= 0
+      if prev_rank.to_i < curr_rank.to_i then
+        direction = 'up'
+        symbol = $up_symbol
+        verb = $imported_categories['upward_verbs'].sample.to_s
+      else
+        direction = 'down'
+        symbol = $down_symbol
+        verb = $imported_categories['downward_verbs'].sample.to_s
+      end
+    end
 
     #assemble our tweet
     superlative = $imported_categories['superlatives'].sample.to_s
-    verb = $imported_categories['verbs'].sample.to_s
-    rank_str = (curr_rank + 1).to_s
-    str = superlative + " @" + username + " " + verb + " #" + rank_str + " " + category
+    rank_str = (curr_rank + 1).to_s #add 1 because rankings start at 0
+    name_for_list = $imported_categories['names_for_lists'].sample.to_s
+    str = symbol + " " + superlative + " @" + username + " " + verb + " #" + rank_str + " " + category
     return str
   end
 
@@ -179,7 +193,7 @@ end
 # poc: create 10 lists of 5 members each, output 100 tweets
 x = ListMachine.new(num_lists = 100, list_size = 10)
 i = 0
-while i <= 10
+while i <= 1000
   puts "------------------------------"
   x.rank()
   puts x.get_tweet()

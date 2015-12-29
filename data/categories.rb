@@ -1,31 +1,59 @@
 $imported_categories = {
   "superlatives" => [
-    "hot off the list presses:",
-    "list update!",
-    "time to make the lists!",
-    "i'mmmm updating liiiiiists! :D",
-    "congratulations!",
-    "oh no!",
-    "uh oh!",
-    "interesting.",
-    "this is new.",
-    "wow.",
-    "this just in!",
-    "important list update!",
-    "i've updated my lists!",
-    "add the 8... carry the 0... ok so",
-    "according to my calculations"
-    "commiserations!"
-    "breaking news"
-    "sorry to inform you"
-    "hmmm"
-    "as it stands"
-    "it's all changed"
-    "it's official!"
+    "Hot off the list presses:",
+    "List update!",
+    "Time to make the lists!",
+    "I'mmmm updating liiiiiists! :D",
+    "Congratulations!",
+    "Oh no!",
+    "Uh oh!",
+    "Interesting.",
+    "This is new.",
+    "Wow.",
+    "This just in!",
+    "Important list update!",
+    "I've updated my lists!",
+    "Add the 8... carry the 0... ok so",
+    "According to my calculations",
+    "Commiserations!",
+    "Breaking news",
+    "Sorry to inform you",
+    "Hmmm",
+    "As it stands",
+    "It's all changed.",
+    "It's official!",
   ],
-  "verbs" => [
+  "upward_verbs" => [
+    "has risen to",
+    "has moved up to",
+    "just ranked up to",
+    "ranked up",
+    "has increased their standing to the",
+
+    "has been awarded the",
+    "may now be recognized the",
+    "should be seen as the",
+    "has taken a position as",
+    "is now listed as the",
+    "is on the list as the",
+  ],
+  "downward_verbs" => [
+    "has fallen to",
+    "has dropped down",
+    "just ranked down to",
+    "ranked down",
+    "has decreased their standing to the",
+
+    "has been awarded the",
+    "may now be recognized the",
+    "should be seen as the",
+    "has taken a position as",
+    "is now listed as the",
+    "is on the list as the",
+  ],
+  "neutral_verbs" => [
     "has become the",
-    "is now the",
+    "is now",
     "just became the",
     "is, starting now, the",
     "has been awarded the",
@@ -34,6 +62,12 @@ $imported_categories = {
     "has taken a position as",
     "is now listed as the",
     "is on the list as the"
+  ],
+  "names_for_lists" => [
+    "on the list of",
+    "on my list of",
+    "on this here thing that lists",
+    "with my list"
   ],
   "adjectives" => [
     "most likely",
@@ -48,7 +82,6 @@ $imported_categories = {
     "cutest",
     "hottest",
     "most attractive",
-    "ugliest",
     "most ridiculous",
     "strongest",
     "tallest",
@@ -76,19 +109,19 @@ $imported_categories = {
     "artist",
     "art fan",
     "curator",
-    "intern"
-    "hacker"
-    "new media artist"
-    "art lover"
-    "craft enthusiast"
-    "cat lover"
-    "creative genius"
-    "innovator"
-    "visionary"
-    "design guru"
-    "procrastinator"
-    "attention seeker"
-    "troll"
+    "intern",
+    "hacker",
+    "new media artist",
+    "art lover",
+    "craft enthusiast",
+    "cat lover",
+    "creative genius",
+    "innovator",
+    "visionary",
+    "design guru",
+    "procrastinator",
+    "attention seeker",
+    "troll",
     "spammer"
   ],
   "categories" => [
@@ -118,16 +151,16 @@ $imported_categories = {
     "to make a twitter bot",
     "to quit the internet",
     "to delete their account",
-    "to hoard collectable art"
-    "to lost their art"
-    "that likes Banksy"
-    "to have a cat"
-    "that uses emojis"
-    "that really made our year"
-    "to delete a post if it received no likes"
-    "that remembers before the iPhone"
-    "that you should be blocking"
-    "that you really must follow"
+    "to hoard collectable art",
+    "to lost their art",
+    "that likes Banksy",
+    "to have a cat",
+    "that uses emojis",
+    "that really made our year",
+    "to delete a post if it received no likes",
+    "that remembers before the iPhone",
+    "that you should be blocking",
+    "that you really must follow",
     "there is"
   ]
 }
