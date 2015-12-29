@@ -74,10 +74,18 @@ $imported_categories = {
     "illustrator",
     "artist",
     "art fan",
-    "sports fan",
+    "curator",
     "intern"
     "hacker"
     "new media artist"
+    "art lover"
+    "craft enthusiast"
+    "cat lover"
+    "creative genius"
+    "innovator"
+    "visionary"
+    "design guru"
+    "procrastinator"
   ],
   "categories" => [
     "to be on Twitter",
@@ -116,5 +124,6 @@ $imported_categories = {
     "that remembers before the iPhone"
     "that you should be blocking"
     "that you really must follow"
+    "there is"
   ]
 }
