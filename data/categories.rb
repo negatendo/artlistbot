@@ -107,5 +107,8 @@ $imported_categories = {
     "that uses emojis"
     "that really made our year"
     "to delete a post if it received no likes"
+    "that remembers before the iPhone"
+    "that you should be blocking"
+    "that you really must follow"
   ]
 }
