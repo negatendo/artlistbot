@@ -71,8 +71,8 @@ $imported_categories = {
     "instagram user",
     "HTML coder",
     "painter",
-    "sculptor",
-    "illustrator",
+    "creative",
+    "nerd",
     "artist",
     "art fan",
     "curator",
@@ -87,6 +87,9 @@ $imported_categories = {
     "visionary"
     "design guru"
     "procrastinator"
+    "attention seeker"
+    "troll"
+    "spammer"
   ],
   "categories" => [
     "to be on Twitter",
