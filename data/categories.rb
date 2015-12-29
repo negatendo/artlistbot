@@ -70,6 +70,8 @@ $imported_categories = {
     "art fan",
     "sports fan",
     "intern"
+    "hacker"
+    "new media artist"
   ],
   "categories" => [
     "to be on Twitter",
