@@ -36,6 +36,11 @@
     "hottest",
     "most attractive",
     "ugliest"
+    "most relevant"
+    "coolest"
+    "most on point"
+    "realest"
+    "illest"
   },
   "nouns": {
     "net artist",
@@ -50,6 +55,8 @@
     "illustrator",
     "artist",
     "art fan"
+    "content creator"
+    "tweeter"
   },
   "categories": {
     "to be on Twitter",
