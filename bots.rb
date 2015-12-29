@@ -1,30 +1,57 @@
 require 'twitter_ebooks'
 
+require_relative 'rubybottools/twurlrc-reader.rb'
+
+require_relative 'src/listmachine.rb'
+
 # This is an example bot definition with event handlers commented out
 # You can define and instantiate as many bots as you like
 
 class MyBot < Ebooks::Bot
   # Configuration here applies to all MyBots
+  attr_accessor :listmachine
+
   def configure
-    # Consumer details come from registering an app at https://dev.twitter.com/
-    # Once you have consumer details, use "ebooks auth" for new access tokens
-    self.consumer_key = '' # Your app consumer key
-    self.consumer_secret = '' # Your app consumer secret
+    account = TwurlrcReader.new('MarbleckaeYumte','lN1fHeFIm7LTAKQYV03DDpVNO')
+
+    self.consumer_key = account.consumer_key
+    self.consumer_secret = account.consumer_secret
+    self.access_token = account.access_token
+    self.access_token_secret = account.access_token_secret
 
     # Users to block instead of interacting with
     self.blacklist = ['tnietzschequote']
 
     # Range in seconds to randomize delay when bot.delay is called
     self.delay_range = 1..6
+
+    # Set up list machine
+    @listmachine = ListMachine.new(num_lists = 100, list_size = 10)
   end
 
   def on_startup
-    scheduler.every '24h' do
-      # Tweet something every 24 hours
-      # See https://github.com/jmettraux/rufus-scheduler
-      # tweet("hi")
-      # pictweet("hi", "cuteselfie.jpg")
+    #TODO parse follower list and update listmachine on startup
+
+    scheduler.every '10m' do
+      # Tweet a random list position
+      num_retries = 0
+      max_num_retries = 5
+      while num_retries < max_num_retries
+        tweet = @listmachine.get_tweet()
+        if tweet
+          tweet(tweet)
+          break
+        else
+          num_retries += 1
+        end
+      end
     end
+
+    scheduler.every '5h' do
+      # resort lists (adds new people too)
+      @listmachine.rank()
+    end
+
   end
 
   def on_message(dm)
@@ -33,8 +60,8 @@ class MyBot < Ebooks::Bot
   end
 
   def on_follow(user)
-    # Follow a user back
-    # follow(user.screen_name)
+    # Add a user to the list machine
+    @listmachine.add_user(user)
   end
 
   def on_mention(tweet)
@@ -54,7 +81,6 @@ class MyBot < Ebooks::Bot
 end
 
 # Make a MyBot and attach it to an account
-MyBot.new("matthewbot") do |bot|
-  bot.access_token = "" # Token connecting the app to this account
-  bot.access_token_secret = "" # Secret connecting the app to this account
+MyBot.new("MarbleckaeYumte") do |bot|
+  #tokens all assembled later
 end
