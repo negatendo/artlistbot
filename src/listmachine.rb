@@ -25,10 +25,8 @@ require_relative '../data/categories.rb'
 
 # this is an estimate for the maximum length of a list name. expects usernames and superlatives to be added to form 140 characters
 $max_list_name_length = 85
-# number of times it will attempt to generate conforming lists before giving up
-$list_name_retries = 5
-# number of times create_tweet() will attempt to return a valid tweet before giving up
-$valid_tweet_retries = 5
+# general number of times it will attempt to generate conforming lists, tweets, or other retry actions
+$global_num_retries = 5
 
 #unicode symbols (emoji) for our tweets
 $up_symbol = "\u{23EC}"
@@ -86,7 +84,7 @@ class ListMachine
     # Samples a list name!
     num_retries = 0
     str = nil
-    while num_retries <= $list_name_retries do
+    while num_retries <= $global_num_retries do
       adj = $imported_categories['adjectives'].sample
       noun = $imported_categories['nouns'].sample
       cat = $imported_categories['categories'].sample
@@ -120,7 +118,7 @@ class ListMachine
         # find someone not on the list and give them a chance to replace bottom
         user = @users.sample
         num_retries = 0
-        while num_retries <= $list_name_retries
+        while num_retries <= $global_num_retries
           if !@rankings[list]["current"].include? user
             # coinflip!
             roll = rand(0.5)
@@ -156,10 +154,10 @@ class ListMachine
     #get random user from list
     #reminder: rank still starts a 0 right now
     username = curr_users.sample
-    curr_rank = curr_users.index(username.to_s)
+    curr_rank = curr_users.index(username.to_s).to_i + 1
     prev_rank = -1
-    if prev_users then
-      prev_rank = prev_users.index(username.to_s)
+    if prev_users.any? then
+      prev_rank = prev_users.index(username.to_s).to_i + 1
     end
 
     #set ranking symbol and verb
@@ -167,8 +165,8 @@ class ListMachine
     symbol = $neutral_symbol
     verb = $imported_categories['neutral_verbs'].sample.to_s
 
-    if prev_rank.to_i >= 0
-      if prev_rank.to_i < curr_rank.to_i then
+    if prev_rank >= 0
+      if prev_rank < curr_rank then
         direction = 'up'
         symbol = $up_symbol
         verb = $imported_categories['upward_verbs'].sample.to_s
@@ -179,24 +177,32 @@ class ListMachine
       end
     end
 
-    #assemble our tweet
-    superlative = $imported_categories['superlatives'].sample.to_s
-    rank_str = (curr_rank + 1).to_s #add 1 because rankings start at 0
-    name_for_list = $imported_categories['names_for_lists'].sample.to_s
-    str = symbol + " " + superlative + " @" + username + " " + verb + " #" + rank_str + " " + category
-    return str
+    #add 1 because rankings start at 0
+    rank_str = "#" + curr_rank.to_s
+
+    #assemble our tweet (140 character w/ retries)
+    num_retries = 0
+    while num_retries <= $global_num_retries do
+      superlative = $imported_categories['superlatives'].sample.to_s
+      name_for_list = $imported_categories['names_for_lists'].sample.to_s
+      str = symbol + " " + superlative + " @" + username + " " + verb + " " + rank_str + " " + category
+      if str.length <= 140
+        return str
+        break
+      end
+    end
   end
 
 end
 
 # TESTING STUFF
 # poc: create 10 lists of 5 members each, output 100 tweets
-x = ListMachine.new(num_lists = 100, list_size = 10)
-i = 0
-while i <= 1000
-  puts "------------------------------"
-  x.rank()
-  puts x.get_tweet()
-  i += 1
-end
+#x = ListMachine.new(num_lists = 100, list_size = 10)
+#i = 0
+#while i <= 1000
+#  puts "------------------------------"
+#  x.rank()
+#  puts x.get_tweet()
+#  i += 1
+#end
 
