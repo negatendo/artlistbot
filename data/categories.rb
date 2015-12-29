@@ -15,6 +15,13 @@ $imported_categories = {
     "i've updated my lists!",
     "add the 8... carry the 0... ok so",
     "according to my calculations"
+    "commiserations!"
+    "breaking news"
+    "sorry to inform you"
+    "hmmm"
+    "as it stands"
+    "it's all changed"
+    "it's official!"
   ],
   "verbs" => [
     "has become the",
@@ -64,12 +71,25 @@ $imported_categories = {
     "instagram user",
     "HTML coder",
     "painter",
-    "sculptor",
-    "illustrator",
+    "creative",
+    "nerd",
     "artist",
     "art fan",
-    "sports fan",
+    "curator",
     "intern"
+    "hacker"
+    "new media artist"
+    "art lover"
+    "craft enthusiast"
+    "cat lover"
+    "creative genius"
+    "innovator"
+    "visionary"
+    "design guru"
+    "procrastinator"
+    "attention seeker"
+    "troll"
+    "spammer"
   ],
   "categories" => [
     "to be on Twitter",
@@ -99,5 +119,15 @@ $imported_categories = {
     "to quit the internet",
     "to delete their account",
     "to hoard collectable art"
+    "to lost their art"
+    "that likes Banksy"
+    "to have a cat"
+    "that uses emojis"
+    "that really made our year"
+    "to delete a post if it received no likes"
+    "that remembers before the iPhone"
+    "that you should be blocking"
+    "that you really must follow"
+    "there is"
   ]
 }
