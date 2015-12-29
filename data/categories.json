@@ -6,7 +6,21 @@
     "uh oh!",
     "interesting.",
     "this is new.",
-    "wow"
+    "wow.",
+    "this just in!",
+    "important list update!",
+    "i've updated my lists!",
+    "add the 8... carry the 0... ok so",
+    "according to my calculations"
+  },
+  "verbs": {
+    "has become the",
+    "is now the",
+    "just became the",
+    "is, starting now, the",
+    "has been awarded the",
+    "may now be recognized the",
+    "should be seen as the"
   },
   "adjectives": {
     "most likely",
@@ -17,14 +31,32 @@
     "smallest",
     "tiniest",
     "most often to",
-    "least often to"
+    "least often to",
+    "cutest",
+    "hottest",
+    "most attractive",
+    "ugliest"
+  },
+  "nouns": {
+    "net artist",
+    "blogger",
+    "user account",
+    "twitter account",
+    "facebook user",
+    "instagram user",
+    "HTML coder",
+    "painter",
+    "sculptor",
+    "illustrator",
+    "artist",
+    "art fan"
   },
   "categories": {
-    "be on Twitter",
-    "miss your private view",
-    "Spammer of the year",
-    "Meme lover of the year",
-    "Meme hater of the year",
+    "to be on Twitter",
+    "to miss your private view",
+    "that's Spammer of the year",
+    "that's Meme lover of the year",
+    "that's Meme hater of the year",
     "to take a museum selfie",
     "to follow @jerrysaltz",
     "to sell their art",
@@ -37,18 +69,11 @@
     "to be online",
     "to have an exhibition",
     "to share your content",
-    "to have their work featured"
-    "to share your content"
-    "to have their work featured"
-    "to buy followers"
-    "to go viral"
-    "most aesthetically pleasing art"
-  },
-  "nouns": {
-    "net artist",
-    "blogger",
-    "user account",
-    "twitter account",
-    "facebook user"
+    "to have their work featured",
+    "to share your content",
+    "to have their work featured",
+    "to buy followers",
+    "to go viral",
+    "with the most aesthetically pleasing art"
   }
 }
