@@ -101,5 +101,9 @@ $imported_categories = {
     "to quit the internet",
     "to delete their account",
     "to hoard collectable art"
+    "to lost their art"
+    "that likes Banksy"
+    "to have a cat"
+    "that uses emojis"
   ]
 }
