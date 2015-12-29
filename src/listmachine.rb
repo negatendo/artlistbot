@@ -1,4 +1,5 @@
 #!/usr/bin/ruby
+# encoding: UTF-8
 
 require 'json'
 require 'pry'
@@ -13,13 +14,14 @@ require_relative '../data/categories.rb'
 # - new(num_lists,list_size,addtl_followers) Loads category and user data for assembling tweets, creating the specified number of random lists
 #   list_size is how many users per list and additional_followers can be an array of other users to list in addition to those in users.json
 #   DO NOT INCLUDE THE @ SYMBOL WITH USERNAMES - we will do that as a part of character counting
-# - rank() Ranks and lists all users in all categories (happens with new()). do this to "rerank" everyone.
-#   if someone is ranked lower than list_size, they are out and a new username is added to bottom?
-#   this should be called on a schedule, with maybe create_tweet() happening after
+# - rank() Ranks and lists all users in all categories (happens with new()). do this to "rerank" everyone. this should be called on a schedule,
+#   with maybe create_tweet() happening after
 # - add_user(username) add a new user to an existing list and sort(), giving them chance to be added to the bottom of all existing lists
-#   this should be called when a new user follows the bot.
+#   this should be called when a new user follows the bot. you can use create_tweet(username) to get a ranking they achieve for a tweet
 # - create_tweet(username) returns list position information for a random list for the specified user, or a random user if no one is specified.
 #   if the user is not on a list returns nil.
+# - you can also use the "events" attribute to tweet about other events such as someone getting added to a list. clear out events after you
+#   tweet them to prevent repetition
 
 # this is an estimate for the maximum length of a list name. expects usernames and superlatives to be added to form 140 characters
 $max_list_name_length = 85
@@ -28,12 +30,23 @@ $list_name_retries = 5
 # number of times create_tweet() will attempt to return a valid tweet before giving up
 $valid_tweet_retries = 5
 
+#unicode symbols (emoji) for our tweets
+$up_symbol = "\u{23EC}"
+$neutral_symbol = "\u{2796}"
+$down_symbol  = "\u{23EB}"
 
 class ListMachine
 
-  attr_reader :users, :lists, :rankings
+  attr_reader :users, :lists, :rankings, :num_lists, :list_size
+  attr_accessor :events
 
   def initialize(num_lists = 50, list_size = 10, addtl_followers = nil)
+    #carry these trhue
+    @num_lists = num_lists
+    @list_size = list_size
+
+    #events is array of possible tweets
+    @events = Array.new
 
     # Set up our users array
     import = Array.new
@@ -52,39 +65,40 @@ class ListMachine
     @users = @users.uniq
 
     # setup our specified number of lists
-    @lists = self.generate_lists(num_lists)
+    @lists = self.generate_lists()
 
     # setup our initial rankings inside each list
+    @rankings = {}
     self.rank()
   end
 
-  def generate_lists(num_lists)
-    # keep retrying until
+  def generate_lists()
     lists = Array.new()
     num_created = 0
-    num_retries = 0
-    while num_lists <= num_created or num_retries <= $list_name_retries do
-      list = self.generate_list_name()
-      puts list
-      if (list.length <= $max_list_name_length and !lists.include? list)
-        puts "adding"
-        lists << list
-        num_retries = 0 #reset retries
-        num_created += 1
-      else
-        num_retries += 1
-      end
+    while num_created < @num_lists do
+      lists << self.generate_list_name()
+      num_created += 1
     end
     return lists
   end
 
   def generate_list_name()
     # Samples a list name!
-    adj = $imported_categories['adjectives'].sample
-    noun = $imported_categories['nouns'].sample
-    cat = $imported_categories['categories'].sample
-    str = adj + " " + noun + " " + cat
-    return str.titleize
+    num_retries = 0
+    str = nil
+    while num_retries <= $list_name_retries do
+      adj = $imported_categories['adjectives'].sample
+      noun = $imported_categories['nouns'].sample
+      cat = $imported_categories['categories'].sample
+      str = adj + " " + noun + " " + cat
+      if (str.length <= $max_list_name_length)
+        str = str.titleize
+        break
+      else
+        num_retries += 1
+      end
+    end
+    return str
   end
 
   def rank()
@@ -92,34 +106,83 @@ class ListMachine
     # Here is what our list hash looks like
     # rankings {
     #   "list_name" => {
-    #     "current_rankings" => [] #ordered array
-    #     "previous_rankings" => [] #ordered array
+    #     "current" => [] #ordered array of usernames
+    #     "previous" => []
     #    }
     # }
     @lists.each do |list|
-      # Does this list exist?
-      if @rankings
-      # Does it already have ranked people?
-        # reposition peopole
-        # give someone a chance to knock out bottom
-        # surviors need to remember their last rank for tweet
-      # Set rankings array
+      # Does this list exist in rankings?
+      if @rankings.include? list
+        # remember last rankings
+        @rankings[list]["previous"] = @rankings[list]["current"]
+        # reshuffle
+        @rankings[list]["current"] = @rankings[list]["current"].shuffle
+        # find someone not on the list and give them a chance to replace bottom
+        user = @users.sample
+        num_retries = 0
+        while num_retries <= $list_name_retries
+          if !@rankings[list]["current"].include? user
+            # coinflip!
+            roll = rand(0.5)
+            if roll >= 0.5
+              #success! knock out the bottom
+              @events << "#{user} just made #{list}!"
+              @rankings[list]["current"][-1] = user
+            end
+          end
+          num_retries += 1
+        end
+      else
+        # Setup inital rankings by just random sample people until full
+        @rankings[list] = { "current" => [], "previous" => [] }
+        while @rankings[list]["current"].size <= @list_size - 1 do
+          user = @users.sample
+          #make sure they're not already on it and add
+          if !@rankings[list]["current"].include? user
+            @rankings[list]["current"] << user
+          end
+        end
+      end
     end
   end
 
-  def create_tweet()
-    #TODO remember retries!
-    return "tweet"
+  def get_tweet()
+    #get a random list
+    list = @rankings.to_a.sample
+    category = list[0]
+    curr_users = list[1]["current"]
+    prev_users = list[1]["previous"]
+
+    #get random user from list
+    username = curr_users.sample
+    curr_rank = curr_users.index(username.to_s)
+    prev_rank = 0
+    if prev_users
+      prev_rank = prev_users.index(username.to_s)
+    end
+
+    #set ranking symbol and verb
+    #TODO
+
+
+    #assemble our tweet
+    superlative = $imported_categories['superlatives'].sample.to_s
+    verb = $imported_categories['verbs'].sample.to_s
+    rank_str = (curr_rank + 1).to_s
+    str = superlative + " @" + username + " " + verb + " #" + rank_str + " " + category
+    return str
   end
 
 end
 
 # TESTING STUFF
 # poc: create 10 lists of 5 members each, output 100 tweets
-x = ListMachine.new(10,5)
-#i = 0
-#while i <= 10 do
-  #puts x.create_tweet()
-#  i += i
-#end
+x = ListMachine.new(num_lists = 100, list_size = 10)
+i = 0
+while i <= 10
+  puts "------------------------------"
+  x.rank()
+  puts x.get_tweet()
+  i += 1
+end
 

@@ -26,7 +26,7 @@ $imported_categories = {
     "should be seen as the",
     "has taken a position as",
     "is now listed as the",
-    "is on the list of the"
+    "is on the list as the"
   ],
   "adjectives" => [
     "most likely",
@@ -47,15 +47,15 @@ $imported_categories = {
     "tallest",
     "smartest",
     "sharpest",
-    "most oblivious"
+    "most oblivious",
+    "ugliest",
+    "most relevant",
+    "coolest",
+    "most on point",
+    "realest",
+    "illest"
   ],
   "nouns" => [
-    "ugliest"
-    "most relevant"
-    "coolest"
-    "most on point"
-    "realest"
-    "illest"
     "net artist",
     "blogger",
     "user account",
