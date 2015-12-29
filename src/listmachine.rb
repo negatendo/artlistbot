@@ -148,48 +148,55 @@ class ListMachine
     #get a random list
     list = @rankings.to_a.sample
     category = list[0]
-    curr_users = list[1]["current"]
-    prev_users = list[1]["previous"]
+    full_data = @rankings[category]
+    curr_users = full_data["current"]
+    prev_users = full_data["previous"]
 
     #get random user from list
     #reminder: rank still starts a 0 right now
     username = curr_users.sample
     curr_rank = curr_users.index(username.to_s).to_i + 1
-    prev_rank = -1
-    if prev_users.any? then
-      prev_rank = prev_users.index(username.to_s).to_i + 1
-    end
 
-    #set ranking symbol and verb
+    #set default ranking symbol and verb
     direction = 'neutral'
     symbol = $neutral_symbol
     verb = $imported_categories['neutral_verbs'].sample.to_s
 
-    if prev_rank >= 0
-      if prev_rank < curr_rank then
+    #add 1 because rankings start at 0
+    prev_rank = prev_users.index(username.to_s).to_i + 1
+    if !prev_rank
+      prev_rank = curr_rank
+    end
+    rank_str = "rank #" + curr_rank.to_s
+    if prev_rank != curr_rank
+      rank_str = "from #" + prev_rank.to_s + " "
+      rank_str += "to #" + curr_rank.to_s
+    end
+
+    #determine direction from previous rank
+    if prev_rank != curr_rank
+      if curr_rank < prev_rank then #on this kind of list a lower number is better!
         direction = 'up'
-        symbol = $up_symbol
-        verb = $imported_categories['upward_verbs'].sample.to_s
-      else
-        direction = 'down'
         symbol = $down_symbol
+        verb = $imported_categories['upward_verbs'].sample.to_s
+      elsif curr_rank > prev_rank
+        direction = 'down'
+        symbol = $up_symbol
         verb = $imported_categories['downward_verbs'].sample.to_s
       end
     end
-
-    #add 1 because rankings start at 0
-    rank_str = "#" + curr_rank.to_s
 
     #assemble our tweet (140 character w/ retries)
     num_retries = 0
     while num_retries <= $global_num_retries do
       superlative = $imported_categories['superlatives'].sample.to_s
       name_for_list = $imported_categories['names_for_lists'].sample.to_s
-      str = symbol + " " + superlative + " @" + username + " " + verb + " " + rank_str + " " + category
+      str = symbol + " " + superlative + " @" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
       if str.length <= 140
         return str
         break
       end
+      num_retries += 1
     end
   end
 
@@ -197,12 +204,12 @@ end
 
 # TESTING STUFF
 # poc: create 10 lists of 5 members each, output 100 tweets
-#x = ListMachine.new(num_lists = 100, list_size = 10)
-#i = 0
-#while i <= 1000
-#  puts "------------------------------"
-#  x.rank()
-#  puts x.get_tweet()
-#  i += 1
-#end
+x = ListMachine.new(num_lists = 100, list_size = 10)
+i = 0
+while i <= 100
+  puts "------------------------------"
+  x.rank()
+  puts x.get_tweet()
+  i += 1
+end
 
