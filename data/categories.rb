@@ -21,6 +21,7 @@ $imported_categories = {
     "hmmm"
     "as it stands"
     "it's all changed"
+    "it's official!"
   ],
   "verbs" => [
     "has become the",
