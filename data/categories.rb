@@ -105,5 +105,7 @@ $imported_categories = {
     "that likes Banksy"
     "to have a cat"
     "that uses emojis"
+    "that really made our year"
+    "to delete a post if it received no likes"
   ]
 }
