@@ -50,6 +50,12 @@ $imported_categories = {
     "most oblivious"
   ],
   "nouns" => [
+    "ugliest"
+    "most relevant"
+    "coolest"
+    "most on point"
+    "realest"
+    "illest"
     "net artist",
     "blogger",
     "user account",
