@@ -30,23 +30,23 @@ $imported_categories = {
     "So this just happened:"
   ],
   "upward_verbs" => [
-    "has risen to",
-    "has moved up to",
-    "just ranked up to",
-    "ranked up to",
-    "moved up to",
-    "has increased their standing to",
-    "has been moved upwards to",
-    "has taken a higher position at"
+    "has risen from",
+    "has moved up from",
+    "just ranked up from",
+    "ranked up from",
+    "moved up from",
+    "has increased their standing from",
+    "has been moved upwards from",
+    "has taken a higher position from"
   ],
   "downward_verbs" => [
-    "has fallen to",
-    "has dropped down to",
-    "just ranked down to",
-    "ranked down to",
-    "moved down to",
-    "has decreased their standing to",
-    "has been moved downards to",
+    "has fallen from",
+    "has dropped down from",
+    "just ranked down from",
+    "ranked down from",
+    "moved down from",
+    "has decreased their standing from",
+    "has been moved downards from",
     "has taken a lower position"
   ],
   "neutral_verbs" => [
