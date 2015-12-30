@@ -239,7 +239,9 @@ end
 # TESTING STUFF
 # poc: create 10 lists of 5 members each, output 100 tweets
 #x = ListMachine.new(num_lists = 100, list_size = 10)
-#x.add_user('negatendo')
-#x.rank()
-#puts x.get_tweet('negatendo')
+#i = 0
+#while i < 100
+#  puts x.get_tweet()
+#  i += 1
+#end
 
