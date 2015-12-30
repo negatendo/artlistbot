@@ -225,7 +225,7 @@ class ListMachine
         superlative = " " + $imported_categories['superlatives'].sample.to_s
       end
       name_for_list = $imported_categories['names_for_lists'].sample.to_s
-      str = symbol + superlative + " %" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
+      str = symbol + superlative + " @" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
       if str.length <= 140
         return str
         break
