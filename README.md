@@ -15,3 +15,4 @@ A Twitter bot that ranks people on all the alternative art lists~! by matthew br
 - have lists and rankings shown on a webpage (need them to be persistant)
 - have number of lists increase slowly, and announce when a new list is created?
 - animated gif image (there might be room in tweet)
+- routinely make sure all followers are in the users list (in case of restart)
