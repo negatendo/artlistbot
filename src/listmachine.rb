@@ -219,9 +219,13 @@ class ListMachine
     #assemble our tweet (140 character w/ retries)
     num_retries = 0
     while num_retries <= $global_num_retries do
-      superlative = $imported_categories['superlatives'].sample.to_s
+      #random chance of superlative
+      superlative = ""
+      if rand(0.5) > 0.5
+        superlative = " " + $imported_categories['superlatives'].sample.to_s
+      end
       name_for_list = $imported_categories['names_for_lists'].sample.to_s
-      str = symbol + " " + superlative + " %" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
+      str = symbol + superlative + " %" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
       if str.length <= 140
         return str
         break
