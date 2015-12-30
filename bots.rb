@@ -31,11 +31,11 @@ class MyBot < Ebooks::Bot
 
   def on_startup
     #TODO parse follower list and update listmachine on startup
-    bot.log "Starting up!"
+    self.log "Starting up!"
 
     scheduler.every '10m' do
       # Tweet a random list position
-      bot.log "Going to tweet!"
+      self.log "Going to tweet!"
       num_retries = 0
       max_num_retries = 5
       while num_retries < max_num_retries
@@ -50,7 +50,7 @@ class MyBot < Ebooks::Bot
     end
 
     scheduler.every '5h' do
-      bot.log "Running ranks!"
+      self.log "Running ranks!"
       # resort lists (adds new people too) if
       # not already sorted
       @listmachine.rank()
@@ -71,7 +71,7 @@ class MyBot < Ebooks::Bot
     @listmachine.rank()
     tweet = @listmachine.get_tweet(username)
     if tweet
-      bot.log "Got a new user tweet here!"
+      self.log "Got a new user tweet here!"
       sleep 10
       tweet(tweet)
     end
