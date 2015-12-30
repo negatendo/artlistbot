@@ -26,7 +26,7 @@ class MyBot < Ebooks::Bot
     self.delay_range = 1..6
 
     # Set up list machine
-    @listmachine = ListMachine.new(num_lists = 100, list_size = 10)
+    @listmachine = ListMachine.new(num_lists = 1000, list_size = 10)
   end
 
   def on_startup
@@ -48,7 +48,8 @@ class MyBot < Ebooks::Bot
     end
 
     scheduler.every '5h' do
-      # resort lists (adds new people too)
+      # resort lists (adds new people too) if
+      # not already sorted
       @listmachine.rank()
     end
 
@@ -60,8 +61,17 @@ class MyBot < Ebooks::Bot
   end
 
   def on_follow(user)
-    # Add a user to the list machine
-    @listmachine.add_user(user)
+    # Add a user to the list machine, resort
+    # and announce
+    username = user.screen_name
+    @listmachine.add_user(username)
+    @listmachine.rank()
+    tweet = @listmachine.get_tweet(username)
+    if tweet
+      puts "got tweet"
+      sleep 10
+      tweet(tweet)
+    end
   end
 
   def on_mention(tweet)
