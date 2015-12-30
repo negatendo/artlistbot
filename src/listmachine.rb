@@ -20,8 +20,6 @@ require_relative '../data/categories.rb'
 #   this should be called when a new user follows the bot. you can use create_tweet(username) to get a ranking they achieve for a tweet
 # - create_tweet(username) returns list position information for a random list for the specified user, or a random user if no one is specified.
 #   if the user is not on a list returns nil.
-# - you can also use the "events" attribute to tweet about other events such as someone getting added to a list. clear out events after you
-#   tweet them to prevent repetition
 
 # this is an estimate for the maximum length of a list name. expects usernames and superlatives to be added to form 140 characters
 $max_list_name_length = 85
@@ -68,6 +66,11 @@ class ListMachine
     # setup our initial rankings inside each list
     @rankings = {}
     self.rank()
+  end
+
+  def add_user(username)
+    @users << username
+    @users.uniq
   end
 
   def generate_lists()
@@ -125,7 +128,7 @@ class ListMachine
             if roll >= 0.5
               #success! knock out the bottom
               @events << "#{user} just made #{list}!"
-              @rankings[list]["current"][-1] = user
+              @rankings[list]["current"][0] = user
             end
           end
           num_retries += 1
@@ -144,17 +147,44 @@ class ListMachine
     end
   end
 
-  def get_tweet()
-    #get a random list
-    list = @rankings.to_a.sample
-    category = list[0]
+  def get_tweet(username = nil)
+
+    category = false
+
+    if username
+      #get a list that features this user
+      #haha so inneficentttt
+      found_user = false
+      @rankings.each do |key, v|
+        this_list = v['current']
+        if this_list.include? (username)
+          category = key
+          break
+        end
+      end
+    end
+
+    if !category
+      #get a random list
+      list = @rankings.to_a.sample
+      category = list[0]
+    end
+
+    #setup some list related vars
     full_data = @rankings[category]
     curr_users = full_data["current"]
     prev_users = full_data["previous"]
 
-    #get random user from list
-    #reminder: rank still starts a 0 right now
-    username = curr_users.sample
+    if username
+      #get our specific user from the list
+      username = username
+    else
+      #get random user from list
+      #reminder: rank still starts a 0 right now
+      username = curr_users.sample
+    end
+
+    #get current rank in list
     curr_rank = curr_users.index(username.to_s).to_i + 1
 
     #set default ranking symbol and verb
@@ -191,7 +221,7 @@ class ListMachine
     while num_retries <= $global_num_retries do
       superlative = $imported_categories['superlatives'].sample.to_s
       name_for_list = $imported_categories['names_for_lists'].sample.to_s
-      str = symbol + " " + superlative + " @" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
+      str = symbol + " " + superlative + " %" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
       if str.length <= 140
         return str
         break
@@ -204,12 +234,8 @@ end
 
 # TESTING STUFF
 # poc: create 10 lists of 5 members each, output 100 tweets
-x = ListMachine.new(num_lists = 100, list_size = 10)
-i = 0
-while i <= 100
-  puts "------------------------------"
-  x.rank()
-  puts x.get_tweet()
-  i += 1
-end
+#x = ListMachine.new(num_lists = 100, list_size = 10)
+#x.add_user('negatendo')
+#x.rank()
+#puts x.get_tweet('negatendo')
 
