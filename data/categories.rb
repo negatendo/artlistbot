@@ -1,4 +1,22 @@
+# HERE'S THE HIDDEN BIAS
+#
+# string insert guide (context depends)
+# - %u username
+# - %c category (list) name
+# - %r current rank
+# - %p previous rank
+
 $imported_categories = {
+  "resort_phrases" =>  [
+     "A single selfie just changed everything.",
+     "A resorting event has occoured.",,
+     "A lot of new art just happened. Time to change my lists.",
+     "RESORTING.... COMPLETE",
+     "Hans Ulrich Orbrist just posted something on instagram.",
+     "%u's latest exhibition changes everything.",
+     "%u unliked tweet was not unnoticed.",
+     "%u isn't on social media much lately, this changes everything."
+  ],
   "superlatives" => [
     "Hot off the list presses:",
     "Let's take a look at my lists.",
