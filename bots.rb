@@ -33,7 +33,7 @@ class MyBot < Ebooks::Bot
     #TODO parse follower list and update listmachine on startup
     self.log "Starting up!"
 
-    scheduler.every '10m' do
+    scheduler.every '30m' do
       # Tweet a random list position
       self.log "Going to tweet!"
       num_retries = 0
