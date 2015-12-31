@@ -4,15 +4,14 @@ require_relative 'rubybottools/twurlrc-reader.rb'
 
 require_relative 'src/listmachine.rb'
 
-# This is an example bot definition with event handlers commented out
-# You can define and instantiate as many bots as you like
+$bot_username = 'MarbleckaeYumte'
+$bot_consumer_key ='lN1fHeFIm7LTAKQYV03DDpVNO'
 
 class MyBot < Ebooks::Bot
-  # Configuration here applies to all MyBots
   attr_accessor :listmachine
 
   def configure
-    account = TwurlrcReader.new('MarbleckaeYumte','lN1fHeFIm7LTAKQYV03DDpVNO')
+    account = TwurlrcReader.new($bot_username,$bot_consumer_key)
 
     self.consumer_key = account.consumer_key
     self.consumer_secret = account.consumer_secret
@@ -22,10 +21,6 @@ class MyBot < Ebooks::Bot
     # Users to block instead of interacting with
     self.blacklist = ['tnietzschequote']
 
-    # Range in seconds to randomize delay when bot.delay is called
-    self.delay_range = 1..6
-
-    # Set up list machine
     @listmachine = ListMachine.new(num_lists = 1000, list_size = 10)
   end
 
@@ -33,7 +28,7 @@ class MyBot < Ebooks::Bot
     #TODO parse follower list and update listmachine on startup
     self.log "Starting up!"
 
-    scheduler.every '30m' do
+    scheduler.every '10m' do
       # Tweet a random list position
       self.log "Going to tweet!"
       num_retries = 0
@@ -93,7 +88,5 @@ class MyBot < Ebooks::Bot
   end
 end
 
-# Make a MyBot and attach it to an account
-MyBot.new("MarbleckaeYumte") do |bot|
-  #tokens all assembled later
+MyBot.new($bot_username) do |bot|
 end
