@@ -20,7 +20,7 @@
 
 ## future stuffs?
 
-- more category bits!
+- more category bits! also mix up the grammer with sting inserts e.g. %u = username
 - make lists persistant (dissapear when restarting bot rn)
 - have lists and rankings shown on a webpage (need them to be persistant)
 - have number of lists increase slowly, and announce when a new list is created? (also could have new list init on user join)
