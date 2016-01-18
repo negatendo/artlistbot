@@ -21,7 +21,7 @@ class MyBot < Ebooks::Bot
     # Users to block instead of interacting with
     self.blacklist = ['tnietzschequote']
 
-    @listmachine = ListMachine.new(num_lists = 1000, list_size = 10)
+    @listmachine = ListMachine.new(list_size = 10)
   end
 
   def on_startup
