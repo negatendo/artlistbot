@@ -36,11 +36,7 @@ class ListMachine
   attr_reader :users, :lists, :rankings, :num_lists, :list_size
   attr_accessor :events
 
-  def initialize(num_lists = 50, list_size = 10, addtl_followers = nil)
-    #carry these trhue
-    @num_lists = num_lists
-    @list_size = list_size
-
+  def initialize(list_size = 10, addtl_followers = nil)
     #events is array of possible tweets
     @events = Array.new
 
@@ -51,14 +47,24 @@ class ListMachine
     $imported_users.each do |user|
       import << user.downcase
     end
+    $netartistdaily_followers.each do |user|
+      import << user.downcase
+    end
+    $original_bot_followers.each do |user|
+      import << user.downcase
+    end
+
     if addtl_followers
       addtl_followers.each do |follower|
         import << follower.downcase
       end
     end
-    @users = import + addtl
-    # ensure uniquenes
-    @users = @users.uniq
+
+    @users = import.uniq
+
+    #number of lists is number of users divided by length of lists for no reason
+    @list_size = list_size
+    @num_lists =  @users.length / @list_size
 
     # setup our specified number of lists
     @lists = self.generate_lists()
@@ -80,6 +86,7 @@ class ListMachine
       lists << self.generate_list_name()
       num_created += 1
     end
+    puts lists
     return lists
   end
 
@@ -221,7 +228,7 @@ class ListMachine
     while num_retries <= $global_num_retries do
       #random chance of superlative
       superlative = ""
-      if rand(0.5) > 0.5
+      if rand > 0.5
         superlative = " " + $imported_categories['superlatives'].sample.to_s
       end
       name_for_list = $imported_categories['names_for_lists'].sample.to_s
@@ -238,7 +245,7 @@ end
 
 # TESTING STUFF
 # poc: create 10 lists of 5 members each, output 100 tweets
-#x = ListMachine.new(num_lists = 100, list_size = 10)
+x = ListMachine.new
 #i = 0
 #while i < 100
 #  puts x.get_tweet()
