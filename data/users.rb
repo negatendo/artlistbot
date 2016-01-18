@@ -1659,3 +1659,6 @@ $netartistdaily_followers = [
   'ChrisCollins',
   'hubs'
 ]
+
+$original_bot_followers = [
+]
