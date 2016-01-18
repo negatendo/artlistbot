@@ -5,7 +5,7 @@ require_relative 'rubybottools/twurlrc-reader.rb'
 require_relative 'src/listmachine.rb'
 
 $bot_username = 'MarbleckaeYumte'
-$bot_consumer_key ='lN1fHeFIm7LTAKQYV03DDpVNO'
+$bot_consumer_key ='crsG1CviUk0rIyrBGDO88JpdJ'
 
 class MyBot < Ebooks::Bot
   attr_accessor :listmachine
@@ -28,7 +28,7 @@ class MyBot < Ebooks::Bot
     #TODO parse follower list and update listmachine on startup
     self.log "Starting up!"
 
-    scheduler.every '10m' do
+    scheduler.every '1h' do
       # Tweet a random list position
       self.log "Going to tweet!"
       num_retries = 0
@@ -44,7 +44,7 @@ class MyBot < Ebooks::Bot
       end
     end
 
-    scheduler.every '5h' do
+    scheduler.every '3d' do
       self.log "Running ranks!"
       # resort lists (adds new people too) if
       # not already sorted
