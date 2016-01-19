@@ -20,7 +20,7 @@ store_data = false
 store.transaction(true) do
   if store[:all_followers]
     store_data = store[:all_followers]
-    puts "$netartistdaily_followers = ["
+    puts "$original_bot_followers = ["
     store_data.each do |x|
       puts "'#{x}',"
     end
@@ -29,11 +29,11 @@ store.transaction(true) do
   end
 end
 
-account = TwurlrcReader.new('MarbleckaeYumte','lN1fHeFIm7LTAKQYV03DDpVNO')
+account = TwurlrcReader.new('','')
 
 client = account.get_rest_client()
 
-client.followers('netartistdaily').each do |x|
+client.followers('').each do |x|
   if store_data
     puts store_data
     exit
