@@ -137,7 +137,6 @@ $imported_users = [
   "michael_connor",
   "michellelhooq",
   "thecampaignbook",
-  "jamesbridle",
   "julian0liver",
   "furtherfield",
   "flockofsiegels",
