@@ -1,6 +1,7 @@
 require 'twitter_ebooks'
 
 require_relative 'rubybottools/twurlrc-reader.rb'
+require_relative 'rubybottools/twittersession.rb'
 
 require_relative 'src/listmachine.rb'
 
@@ -22,6 +23,8 @@ class MyBot < Ebooks::Bot
     self.blacklist = ['tnietzschequote']
 
     @listmachine = ListMachine.new(list_size = 10)
+
+    @session = TwitterSession.new('artlistbot')
   end
 
   def on_startup
@@ -65,8 +68,33 @@ class MyBot < Ebooks::Bot
     @listmachine.add_user(username)
     @listmachine.rank()
     tweet = @listmachine.get_tweet(username)
+
+    # to do new follower tweet must have a tweet as well as applicable session state
+    do_new_follower_tweet = false
     if tweet
       self.log "Got a new user tweet here!"
+      self.log "checking last interaction"
+      time = if @session.get_user(username).last_interaction_time.nil?
+        self.log "never interacted"
+        do_new_follower_tweet = true
+      else
+        # max 1 per hr followback interaction
+        if (Time.now.to_i - @session.get_user(username).last_interaction_time >= 3600)
+          self.log "interacted long enough ago"
+          do_new_follower_tweet = true
+        else
+          self.log "user #{username} already interacted with the bot recently"
+        end
+      end
+      # log last interaction time to prevent exploit of follow/unfollow mentions
+      @session.log_user_interaction(username)
+    else
+      self.log "failed to come up with a tweet"
+      do_new_follower_tweet = false
+    end
+
+    #do new follower tweet
+    if do_new_follower_tweet
       sleep 10
       tweet(tweet)
     end
