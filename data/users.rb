@@ -21,7 +21,6 @@ $imported_users = [
   "spitzenprodukte",
   "eddfornieles",
   "kaleighrogers",
-  "jerrysaltz",
   "searleadrian",
   "aimeecliff",
   "richardprince4",

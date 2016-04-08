@@ -77,7 +77,6 @@ $list_name_parts = {
     "who are also Meme lovers of the year",
     "who are also Meme haters of the year",
     "to take a museum selfie",
-    "to follow @jerrysaltz",
     "to sell their art",
     "to treat a residency like a holiday",
     "to unfollow you",
