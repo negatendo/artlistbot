@@ -79,25 +79,25 @@ class ListMachine
     @users.uniq
   end
 
-  def generate_lists()
+  def generate_lists
     lists = Array.new()
     num_created = 0
     while num_created < @num_lists do
-      lists << self.generate_list_name()
+      lists << self.generate_list_name
       num_created += 1
     end
     puts lists
     return lists
   end
 
-  def generate_list_name()
+  def generate_list_name
     # Samples a list name!
     num_retries = 0
     str = nil
     while num_retries <= $global_num_retries do
-      adj = $imported_categories['adjectives'].sample
-      noun = $imported_categories['nouns'].sample
-      cat = $imported_categories['categories'].sample
+      adj = $list_name_parts['adjectives'].sample
+      noun = $list_name_parts['nouns'].sample
+      cat = $list_name_parts['categories'].sample
       str = adj + " " + noun + " " + cat
       if (str.length <= $max_list_name_length)
         str = str.titleize
@@ -197,7 +197,7 @@ class ListMachine
     #set default ranking symbol and verb
     direction = 'neutral'
     symbol = $neutral_symbol
-    verb = $imported_categories['neutral_verbs'].sample.to_s
+    verb = $list_name_parts['neutral_verbs'].sample.to_s
 
     #add 1 because rankings start at 0
     prev_rank = prev_users.index(username.to_s).to_i + 1
@@ -215,19 +215,19 @@ class ListMachine
       if curr_rank < prev_rank then #on this kind of list a lower number is better!
         direction = 'up'
         symbol = $down_symbol
-        verb = $imported_categories['upward_verbs'].sample.to_s
+        verb = $list_name_parts['upward_verbs'].sample.to_s
       elsif curr_rank > prev_rank
         direction = 'down'
         symbol = $up_symbol
-        verb = $imported_categories['downward_verbs'].sample.to_s
+        verb = $list_name_parts['downward_verbs'].sample.to_s
       end
     end
 
     #assemble our tweet (140 character w/ retries)
     num_retries = 0
     while num_retries <= $global_num_retries do
-      name_for_list = $imported_categories['names_for_lists'].sample.to_s
-      str = symbol + " @" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
+      name_for_list = $list_name_parts['names_for_lists'].sample.to_s
+      str = symbol + " %" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
       if str.length <= 140
         return str
         break
@@ -240,7 +240,7 @@ end
 
 # TESTING STUFF
 # poc: create 10 lists of 5 members each, output 100 tweets
-x = ListMachine.new
+#x = ListMachine.new
 #i = 0
 #while i < 100
 #  puts x.get_tweet()
