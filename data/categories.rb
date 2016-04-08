@@ -1,90 +1,7 @@
-# HERE'S THE HIDDEN BIAS
-#
-# string insert guide (context depends)
-# - %u username
-# - %c category (list) name
-# - %r current rank
-# - %p previous rank
-
-$imported_categories = {
-  "resort_phrases" =>  [
-     "A single selfie just changed everything.",
-     "A resorting event has occoured.",,
-     "A lot of new art just happened. Time to change my lists.",
-     "RESORTING.... COMPLETE",
-     "Hans Ulrich Orbrist just posted something on instagram.",
-     "%u's latest exhibition changes everything.",
-     "%u unliked tweet was not unnoticed.",
-     "%u isn't on social media much lately, this changes everything."
-  ],
-  "superlatives" => [
-    "Hot off the list presses:",
-    "Let's take a look at my lists.",
-    "List update!",
-    "Time to make the liiiiiiists!",
-    "I'mmmm updating liiiiiists! :D",
-    "Congratulations!",
-    "Oh no!",
-    "Uh oh!",
-    "Interesting.",
-    "This is new.",
-    "Wow.",
-    "Amazing.",
-    "This just in!",
-    "Important list update!",
-    "I've updated my lists!",
-    "Add the 8... carry the 0... ok so",
-    "According to my calculations,",
-    "Commiserations!",
-    "Breaking news:",
-    "Sorry to inform you,",
-    "Hmmm...",
-    "Hmmmmmmmm....",
-    "As it stands,",
-    "It's all been changed.",
-    "It's official!",
-    "UPDATE!",
-    "Just updated:",
-    "So this just happened:"
-  ],
-  "upward_verbs" => [
-    "has risen from",
-    "has moved up from",
-    "just ranked up from",
-    "ranked up from",
-    "moved up from",
-    "has increased their standing from",
-    "has been moved upwards from",
-    "has taken a higher position from"
-  ],
-  "downward_verbs" => [
-    "has fallen from",
-    "has dropped down from",
-    "just ranked down from",
-    "ranked down from",
-    "moved down from",
-    "has decreased their standing from",
-    "has been moved downards from",
-    "has taken a lower position"
-  ],
-  "neutral_verbs" => [
-    "has been set to",
-    "may now be recognized as",
-    "can now be seen as",
-    "has taken a new position as",
-    "is having their listing set at",
-    "is now being tracked, settling in at",
-    "just entered in at",
-  ],
-  "names_for_lists" => [
-    "on my list:",
-    "on this here thing that lists the",
-    "with my list,",
-    "on this list:",
-    "on the very important list of",
-    "on the following list:",
-    "on"
-  ],
+# TODO list announcements with sting insert
+# TODO list resort annoucements with random user inserts
+# word parts that make up list names
+$list_name_parts = {
   "adjectives" => [
     "most likely",
     "least likely",
@@ -110,6 +27,11 @@ $imported_categories = {
     "friendliest",
     "fuzziest",
     "most labyrinthine",
+    "perceptually youngest",
+    "hungriest",
+    "thirstiest",
+    "most caffinated",
+    "most chemically altered"
   ],
   "nouns" => [
     "net artists",
@@ -121,8 +43,6 @@ $imported_categories = {
     "PHP coders",
     "Ruby coders",
     "HTML coders",
-    "crypto fiends",
-    "crypt fiends",
     "painters",
     "creatives",
     "nerds",
@@ -146,7 +66,9 @@ $imported_categories = {
     "crab person",
     "ar-TIESTs",
     "creatives",
-    "water drinkers"
+    "water drinkers",
+    "sculptor",
+    "new-new-NEW-media artist"
   ],
   "categories" => [
     "to be on Twitter",
@@ -200,6 +122,25 @@ $imported_categories = {
     "to run a great D&D game",
     "to beat you in tennis",
     "to beat you at foosball",
-    "to also become an all-star cricket player"
+    "to also become an all-star cricket player",
+    "to make tons of money",
+    "to make the big bucks",
+    "to do a collabo"
   ]
+
 }
+
+# phrases said when announcing list movement
+# %u - username
+# %l - list name
+# %r - current rank
+# %p - previous rank
+# %m - movement (up/down/nowhere)
+$list_movement_announcements = [
+]
+
+# phrases said when announcing list changes
+# sometimes can cite a random user
+# %u - username
+$list_regeneration_announcements = [
+]

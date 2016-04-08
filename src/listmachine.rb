@@ -21,7 +21,7 @@ require_relative '../data/categories.rb'
 # - create_tweet(username) returns list position information for a random list for the specified user, or a random user if no one is specified.
 #   if the user is not on a list returns nil.
 
-# this is an estimate for the maximum length of a list name. expects usernames and superlatives to be added to form 140 characters
+# this is an estimate for the maximum length of a list name.
 $max_list_name_length = 85
 # general number of times it will attempt to generate conforming lists, tweets, or other retry actions
 $global_num_retries = 5
@@ -36,11 +36,7 @@ class ListMachine
   attr_reader :users, :lists, :rankings, :num_lists, :list_size
   attr_accessor :events
 
-  def initialize(num_lists = 50, list_size = 10, addtl_followers = nil)
-    #carry these trhue
-    @num_lists = num_lists
-    @list_size = list_size
-
+  def initialize(list_size = 10, addtl_followers = nil)
     #events is array of possible tweets
     @events = Array.new
 
@@ -51,14 +47,24 @@ class ListMachine
     $imported_users.each do |user|
       import << user.downcase
     end
+    $netartistdaily_followers.each do |user|
+      import << user.downcase
+    end
+    $original_bot_followers.each do |user|
+      import << user.downcase
+    end
+
     if addtl_followers
       addtl_followers.each do |follower|
         import << follower.downcase
       end
     end
-    @users = import + addtl
-    # ensure uniquenes
-    @users = @users.uniq
+
+    @users = import.uniq
+
+    #number of lists is number of users divided by length of lists for no reason
+    @list_size = list_size
+    @num_lists =  @users.length / @list_size
 
     # setup our specified number of lists
     @lists = self.generate_lists()
@@ -80,6 +86,7 @@ class ListMachine
       lists << self.generate_list_name()
       num_created += 1
     end
+    puts lists
     return lists
   end
 
@@ -219,13 +226,8 @@ class ListMachine
     #assemble our tweet (140 character w/ retries)
     num_retries = 0
     while num_retries <= $global_num_retries do
-      #random chance of superlative
-      superlative = ""
-      if rand(0.5) > 0.5
-        superlative = " " + $imported_categories['superlatives'].sample.to_s
-      end
       name_for_list = $imported_categories['names_for_lists'].sample.to_s
-      str = symbol + superlative + " @" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
+      str = symbol + " @" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
       if str.length <= 140
         return str
         break
@@ -238,7 +240,7 @@ end
 
 # TESTING STUFF
 # poc: create 10 lists of 5 members each, output 100 tweets
-#x = ListMachine.new(num_lists = 100, list_size = 10)
+x = ListMachine.new
 #i = 0
 #while i < 100
 #  puts x.get_tweet()

@@ -26,3 +26,4 @@
 - have number of lists increase slowly, and announce when a new list is created? (also could have new list init on user join)
 - add that animated gif image (there might be room in tweet)
 - routinely make sure all followers are in the users list, and no unfollowers are still there (in case of restart)
+- fix unfollow/refollow triggering resort
