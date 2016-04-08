@@ -125,8 +125,45 @@ $list_name_parts = {
     "to make tons of money",
     "to make the big bucks",
     "to do a collabo"
+  ],
+  "upward_verbs" => [
+    "has risen from",
+    "has moved up from",
+    "just ranked up from",
+    "ranked up from",
+    "moved up from",
+    "has increased their standing from",
+    "has been moved upwards from",
+    "has taken a higher position from"
+  ],
+  "downward_verbs" => [
+    "has fallen from",
+    "has dropped down from",
+    "just ranked down from",
+    "ranked down from",
+    "moved down from",
+    "has decreased their standing from",
+    "has been moved downards from",
+    "has taken a lower position"
+  ],
+  "neutral_verbs" => [
+    "has been set to",
+    "may now be recognized as",
+    "can now be seen as",
+    "has taken a new position as",
+    "is having their listing set at",
+    "is now being tracked, settling in at",
+    "just entered in at",
+  ],
+  "names_for_lists" => [
+    "on my list:",
+    "on this here thing that lists the",
+    "with my list,",
+    "on this list:",
+    "on the very important list of",
+    "on the following list:",
+    "on"
   ]
-
 }
 
 # phrases said when announcing list movement
