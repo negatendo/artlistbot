@@ -227,7 +227,7 @@ class ListMachine
     num_retries = 0
     while num_retries <= $global_num_retries do
       name_for_list = $list_name_parts['names_for_lists'].sample.to_s
-      str = symbol + " %" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
+      str = symbol + " @" + username + " " + verb + " " + rank_str + " " + name_for_list + " " + category
       if str.length <= 140
         return str
         break
