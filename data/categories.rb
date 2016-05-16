@@ -5,8 +5,8 @@ $list_name_parts = {
   "adjectives" => [
     "most likely",
     "least likely",
-    "most promenient",
-    "least promenient",
+    "most prominent",
+    "least prominent",
     "biggest",
     "tiniest",
     "cutest",
